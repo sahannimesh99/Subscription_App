@@ -32,7 +32,11 @@ public class SubscriptionObserverImpl implements SubscriptionObserver {
             } else {
                 throw new InvalidChannelException(INVALID_CHANNEL);
             }
-        } catch (Exception ex) {
+        } catch (DuplicateChannelException ex) {
+            throw new DuplicateChannelException(DUPLICATED_CHANNEL);
+        }catch (InvalidChannelException ex) {
+            throw new InvalidChannelException(INVALID_CHANNEL);
+        }catch (Exception ex) {
             throw new RuntimeException(INTERNAL_SERVER_ERROR);
         }
     }
@@ -51,6 +55,10 @@ public class SubscriptionObserverImpl implements SubscriptionObserver {
                 throw new InvalidChannelException(INVALID_CHANNEL);
             }
 
+        } catch (AlreadySubscribedException ex) {
+            throw new AlreadySubscribedException(DUPLICATED_SUBSCRIPTION);
+        } catch (InvalidChannelException ex) {
+            throw new InvalidChannelException(INVALID_CHANNEL);
         } catch (Exception ex) {
             throw new RuntimeException(INTERNAL_SERVER_ERROR);
         }
@@ -69,7 +77,9 @@ public class SubscriptionObserverImpl implements SubscriptionObserver {
             } else {
                 throw new SubscriptionErrorException(NOT_SUBSCRIBED);
             }
-        } catch (Exception ex) {
+        } catch (SubscriptionErrorException ex) {
+            throw new SubscriptionErrorException(NOT_SUBSCRIBED);
+        }catch (Exception ex) {
             throw new RuntimeException(INTERNAL_SERVER_ERROR);
         }
     }
