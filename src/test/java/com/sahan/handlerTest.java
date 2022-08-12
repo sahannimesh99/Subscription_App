@@ -53,3 +53,4 @@ public class handlerTest {
         subscriptionObserver.sendMessage("Test Channel","Published Contents");
     }
 }
+// please run the test methods one by one.
